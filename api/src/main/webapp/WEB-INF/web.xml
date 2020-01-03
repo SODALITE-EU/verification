@@ -3,9 +3,9 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Bug Predictor REST API</display-name>
+    <display-name>Verifier REST API</display-name>
     <servlet>
-        <servlet-name>bug-predictor-api</servlet-name>
+        <servlet-name>verifier-api</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
@@ -35,7 +35,7 @@
     <!--	</servlet>-->
 
     <servlet-mapping>
-        <servlet-name>bug-predictor-api</servlet-name>
+        <servlet-name>verifier-api</servlet-name>
         <url-pattern>/v0.1/*</url-pattern>
     </servlet-mapping>
 

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Path("/verifier")
 //@Api()
-public class BugPredictorService {
+public class VerifierService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
