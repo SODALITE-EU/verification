@@ -1,8 +1,8 @@
 package nl.jads.tosca;
 
-import kb.KBApi;
 import kb.dto.Attribute;
 import kb.dto.Property;
+import kb.repository.KB;
 import kb.utils.MyUtils;
 import kb.utils.QueryUtil;
 import org.eclipse.rdf4j.model.IRI;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ToscaVerifierKBApi extends KBApi {
+public class ToscaVerifierKBApi {
 
     String PREFIXES = "PREFIX tosca: <https://www.sodalite.eu/ontologies/tosca/> \r\n" +
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \r\n" +
@@ -27,13 +27,14 @@ public class ToscaVerifierKBApi extends KBApi {
     public static String DUL = "http://www.loa-cnr.it/ontologies/DUL.owl#";
     public static String TOSCA = "https://www.sodalite.eu/ontologies/tosca/";
     public static String SODA = "https://www.sodalite.eu/ontologies/sodalite-metamodel/";
+    private KB kb;
 
-    public ToscaVerifierKBApi() {
-        super();
+    public ToscaVerifierKBApi(KB kb) {
+        this.kb = kb;
     }
 
     public void shutDown() {
-        super.shutDown();
+        kb.shutDown();
     }
 
     public Set<Attribute> getAllAttributes() throws IOException {
@@ -71,7 +72,7 @@ public class ToscaVerifierKBApi extends KBApi {
             Property a = new Property(p1);
             a.setClassifiedBy(concept);
             if (_value != null)
-                a.setValue(_value, this);
+                a.setValue(_value, kb);
 
             properties.add(a);
         }
@@ -113,11 +114,13 @@ public class ToscaVerifierKBApi extends KBApi {
         //TODO
         return false;
     }
-    public boolean validate(){
+
+    public boolean validate() {
         //TODO
         return false;
     }
+
     public static void main(String[] args) throws IOException {
-        ToscaVerifierKBApi kbApi = new ToscaVerifierKBApi();
+        ToscaVerifierKBApi kbApi = new ToscaVerifierKBApi(new KB());
     }
 }
