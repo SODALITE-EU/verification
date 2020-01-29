@@ -66,6 +66,22 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>gr.iti.sodalite</groupId>
+            <artifactId>reasoning-engine</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-json</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>verifier-api</finalName>

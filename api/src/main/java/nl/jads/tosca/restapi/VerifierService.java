@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import kb.repository.KB;
 
 @Path("/verifier")
 //@Api()
@@ -27,7 +28,7 @@ public class VerifierService {
 ////			response = String.class,
 //            responseContainer = "List")
     public Response verify(VerifierInput verifierInput) throws IOException {
-        ToscaVerifierKBApi kbApi = new ToscaVerifierKBApi();
+        ToscaVerifierKBApi kbApi = new ToscaVerifierKBApi(new KB());
         VerificationReport bugReport = findErrors(kbApi, verifierInput);
         kbApi.shutDown();
         return Response.ok(bugReport).build();
