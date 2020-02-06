@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from flask import Flask, json, request, Response
 from werkzeug.utils import secure_filename
@@ -7,12 +8,15 @@ from pnmlpy import WorkflowVerifier
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-UPLOAD_FOLDER = '/tmp/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/errors/workflow/file', methods=['POST'])
 def detect_errors():
+    home = str(Path.home())
+    soda_home = os.path.join(home, ".sodalite")
+    if not os.path.exists(soda_home):
+        os.makedirs(soda_home)
+
     if 'file' not in request.files:
         return json.dumps({'message': 'No file part in the request'}, sort_keys=False, indent=4), 400
 
@@ -21,10 +25,9 @@ def detect_errors():
     if file.filename == '':
         return json.dumps({'message': 'No file selected for uploading'}, sort_keys=False, indent=4), 400
     else:
-        folder = os.path.join(app.config['UPLOAD_FOLDER'])
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        file_path = str(folder) + str(file.filename)
+        file_path = os.path.join(soda_home, filename)
+        file.save(file_path)
         res = verify(file_path)
         if os.path.exists(file_path):
             os.remove(file_path)
