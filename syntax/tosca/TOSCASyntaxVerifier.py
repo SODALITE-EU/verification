@@ -14,8 +14,9 @@ def run_verifier(file):
         bug_data = str(att_error)
         bug_type = type(att_error)
     except TOSCAException as validation_error:
-        bug_data = str(validation_error)
-        bug_type = type(validation_error)
+        # bug_data = str(validation_error)
+        bug_type = type(validation_error).__name__
+        bug_data = validation_error.message
     if bug_type:
         return {"error_type": str(bug_type),
                 "error_info": str(bug_data)}
