@@ -17,28 +17,9 @@ pipeline {
         build 'semantic-reasoner/master'
       }
     }
-    stage ('Build tosca-verification') {
+    stage ('Build verification components') {
       steps {
         sh  """ #!/bin/bash
-                cd tosca
-                mvn clean install
-            """
-        archiveArtifacts artifacts: '**/*.war, **/*.jar', onlyIfSuccessful: true
-      }
-    }
-	stage ('Build ansible-verification') {
-      steps {
-        sh  """ #!/bin/bash
-                cd ansible
-                mvn clean install
-            """
-        archiveArtifacts artifacts: '**/*.war, **/*.jar', onlyIfSuccessful: true
-      }
-    }
-	stage ('Build verification-api') {
-      steps {
-        sh  """ #!/bin/bash
-                cd api
                 mvn clean install
             """
         archiveArtifacts artifacts: '**/*.war, **/*.jar', onlyIfSuccessful: true
