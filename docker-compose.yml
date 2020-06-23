@@ -1,0 +1,15 @@
+version: '3'
+services:
+  tosca-syntax:
+    # will build ./syntax/Dockerfile
+    build:
+      context: ./syntax
+    ports:
+     - "5000:5000"
+
+  ansible-workflow:
+    # will build ./workflow/Dockerfile
+    build:
+        ./workflow
+    ports:
+      - "5001:5000"
