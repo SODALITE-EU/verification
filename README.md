@@ -21,3 +21,29 @@ This requires maven 3.x
 ## Deployment
 
 The built artifact is a web application (.war file) that can be deployed in any Web server. 
+
+## Docker Image Building and Usage : TOSCA Syntax Verifier
+```
+sudo docker build -t sodalite/toscasynverifier .
+sudo docker run -p 5000:5000 -d --name=toscasynverifier sodalite/toscasynverifier
+sudo docker start toscasynverifier
+sudo docker logs toscasynverifier
+sudo docker stop toscasynverifier
+sudo docker rm  toscasynverifier
+sudo docker rmi sodalite/toscasynverifier
+```
+## Docker Image Building and Usage : PetriNet Verifier
+```
+sudo docker build -t sodalite/workflowverifier .
+sudo docker run -p 5000:5000 -d --name=workflowverifier sodalite/workflowverifier
+sudo docker start workflowverifier
+sudo docker logs workflowverifier
+sudo docker stop workflowverifier
+sudo docker rm  workflowverifier
+sudo docker rmi sodalite/workflowverifier
+```
+## Run Docker Compose
+```
+sudo docker-compose up
+sudo docker image ls
+```
