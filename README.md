@@ -47,3 +47,15 @@ sudo docker rmi sodalite/workflowverifier
 sudo docker-compose up
 sudo docker image ls
 ```
+## REST APIs
+# TOSCA
+```
+http://{serverIP}:5000/errors/tosca/file
+```
+Send the TOSCA file as multipart/form-data (name:” file”, value: actual file)
+
+# Petri Net based Workflow
+```
+http://{serverIP}:5000/errors/workflow/file
+```
+Send the PNML (Petri Net Markup Language) file as multipart/form-data (name:” file”, value: actual file)
