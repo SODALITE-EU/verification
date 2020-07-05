@@ -25,6 +25,32 @@ pipeline {
         archiveArtifacts artifacts: '**/*.war, **/*.jar', onlyIfSuccessful: true
       }
     }
+	stage('Build docker images') {
+            steps {
+                sh "cd syntax; docker build -t toscasynverifier  -f Dockerfile ."
+                sh "cd workflow; docker build -t workflowverifier -f Dockerfile ."
+            }
+    }
+   
+    stage('Push Dockerfile to DockerHub') {
+            when {
+               branch "master"
+            }
+            steps {
+                withDockerRegistry(credentialsId: 'jenkins-sodalite.docker_token', url: '') {
+                    sh  """#!/bin/bash                       
+                            docker tag toscasynverifier sodaliteh2020/toscasynverifier:${BUILD_NUMBER}
+                            docker tag toscasynverifier sodaliteh2020/toscasynverifier
+                            docker push sodaliteh2020/toscasynverifier:${BUILD_NUMBER}
+                            docker push sodaliteh2020/toscasynverifier
+                            docker tag workflowverifier sodaliteh2020/workflowverifier:${BUILD_NUMBER}
+                            docker tag workflowverifier sodaliteh2020/workflowverifier
+                            docker push sodaliteh2020/workflowverifier:${BUILD_NUMBER}
+                            docker push sodaliteh2020/workflowverifier
+                        """
+                }
+            }
+    }
   }
   post {
     failure {
