@@ -11,7 +11,7 @@ The information about building semantic reasoner can be found at
 ## Build Process 
 
 Use mvn to build this module project.
-
+ 
 ```
 mvn clean install 
 
