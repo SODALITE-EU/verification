@@ -25,6 +25,19 @@ pipeline {
         archiveArtifacts artifacts: '**/*.war, **/*.jar', onlyIfSuccessful: true
       }
     }
+	stage('SonarQube analysis'){
+        environment {
+          scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('SonarCloud') {
+                sh  """ #!/bin/bash
+                        cd "tosca"
+                        ${scannerHome}/bin/sonar-scanner
+                    """
+            }
+        }
+    }
 	stage('Build docker images') {
             steps {
                 sh "cd syntax; docker build -t toscasynverifier  -f Dockerfile ."
