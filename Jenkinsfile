@@ -6,8 +6,26 @@ pipeline {
       steps {
         checkout scm
       }
-    }    
-	 stage('SonarQube analysis'){
+    }  
+    stage('test syntax verification') {
+        steps {
+            sh  """ #!/bin/bash 
+			        cd syntax
+                    pip3 install -r requirements.txt
+                    python -m unittest discover -s . -p "Test*.py"                    
+                """
+        }
+    }	
+	stage('test workflow verification') {
+        steps {
+            sh  """ #!/bin/bash 
+			        cd workflow
+                    pip3 install -r requirements.txt
+                    python -m unittest discover -s . -p "Test*.py"                    
+                """
+        }
+    }	
+	stage('SonarQube analysis'){
         environment {
           scannerHome = tool 'SonarQubeScanner'
         }
