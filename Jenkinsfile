@@ -6,35 +6,14 @@ pipeline {
       steps {
         checkout scm
       }
-    }
-    stage ('Build semantic-reasoner') {
-      when { 
-          not { 
-                triggeredBy 'UpstreamCause' 
-          }
-      }
-      steps {
-        build 'semantic-reasoner/master'
-      }
-    }
-    stage ('Build verification components') {
-      steps {
-        sh  """ #!/bin/bash
-                mvn clean install
-            """
-        archiveArtifacts artifacts: '**/*.war, **/*.jar', onlyIfSuccessful: true
-      }
-    }
-	stage('SonarQube analysis'){
+    }    
+	 stage('SonarQube analysis'){
         environment {
           scannerHome = tool 'SonarQubeScanner'
         }
         steps {
             withSonarQubeEnv('SonarCloud') {
-                sh  """ #!/bin/bash
-                        cd "tosca"
-                        ${scannerHome}/bin/sonar-scanner
-                    """
+                      sh "${scannerHome}/bin/sonar-scanner"
             }
         }
     }
