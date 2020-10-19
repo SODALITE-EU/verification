@@ -12,7 +12,7 @@ pipeline {
             sh  """ #!/bin/bash 
 			        cd syntax
                     pip3 install -r requirements.txt
-                    python -m unittest discover -s . -p "Test*.py"                    
+                    python3 -m unittest discover -s . -p "Test*.py"                    
                 """
         }
     }	
@@ -21,7 +21,7 @@ pipeline {
             sh  """ #!/bin/bash 
 			        cd workflow
                     pip3 install -r requirements.txt
-                    python -m unittest discover -s . -p "Test*.py"                    
+                    python3 -m unittest discover -s . -p "Test*.py"                    
                 """
         }
     }	
