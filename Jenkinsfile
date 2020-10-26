@@ -6,32 +6,52 @@ pipeline {
       steps {
         checkout scm
       }
-    }  
-    stage('test syntax verification') {
+    } 
+    stage('Test syntax verification') {
         steps {
-            sh  """ #!/bin/bash 
+            sh  """ #!/bin/bash
 			        cd syntax
                     pip3 install -r requirements.txt
-                    python3 -m unittest discover -s . -p "Test*.py"                    
+                    pip3 install -e .
+                    python3 -m pytest --pyargs -s ${WORKSPACE}/tests --junitxml="results.xml" --cov=components --cov=models --cov-report xml tests/
                 """
+            junit 'results.xml'
         }
     }	
-	stage('test workflow verification') {
+    stage('test workflow verification') {
         steps {
-            sh  """ #!/bin/bash 
+            sh  """ #!/bin/bash
 			        cd workflow
                     pip3 install -r requirements.txt
-                    python3 -m unittest discover -s . -p "Test*.py"                    
+                    pip3 install -e .
+                    python3 -m pytest --pyargs -s ${WORKSPACE}/tests --junitxml="results.xml" --cov=components --cov=models --cov-report xml tests/
                 """
+            junit 'results.xml'
         }
-    }	
-	stage('SonarQube analysis'){
+    }
+	stage('SonarQube analysis workflow'){
         environment {
           scannerHome = tool 'SonarQubeScanner'
         }
         steps {
             withSonarQubeEnv('SonarCloud') {
-                      sh "${scannerHome}/bin/sonar-scanner"
+                sh  """ #!/bin/bash
+                        cd "workflow"
+                        ${scannerHome}/bin/sonar-scanner
+                    """
+            }
+        }
+    }
+	stage('SonarQube analysis syntax'){
+        environment {
+          scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('SonarCloud') {
+                sh  """ #!/bin/bash
+                        cd "syntax"
+                        ${scannerHome}/bin/sonar-scanner
+                    """
             }
         }
     }
