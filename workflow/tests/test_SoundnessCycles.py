@@ -1,5 +1,3 @@
-import unittest
-
 from pnmlpy import WorkflowVerifier
 
 
