@@ -13,6 +13,7 @@ pipeline {
 			        cd syntax
                     python3 -m pip install -r requirements.txt                   
                     python3 -m pytest --pyargs -s ./tests --junitxml="results.xml" --cov-report xml tests/
+					cp *.xml $WORKSPACE
                 """
             junit 'results.xml'
         }
@@ -23,6 +24,7 @@ pipeline {
 			        cd workflow
                     python3 -m pip install -r requirements.txt                    
                     python3 -m pytest --pyargs -s ./tests --junitxml="results.xml" --cov-report xml tests/
+					cp *.xml $WORKSPACE
                 """
             junit 'results.xml'
         }
