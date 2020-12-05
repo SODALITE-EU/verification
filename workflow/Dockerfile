@@ -1,4 +1,4 @@
-# Using python 3.7 full image
+# Using pm4py image
 FROM javert899/pm4py:latest
 # Defining working directory and copy the requirements file
 WORKDIR /usr/src/myapp

@@ -13,3 +13,14 @@ services:
         ./workflow
     ports:
       - "5001:5000"
+  
+  opa-server:
+    # will start opa server
+    image: openpolicyagent/opa:0.25.1
+    ports:
+      - "8181:8181"      
+    command:
+      - "run"
+      - "--server"
+      - "--log-level=debug"
+      
