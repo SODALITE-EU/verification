@@ -28,10 +28,10 @@ def run_verifier(file):
         bug_type = type(itv_error)
     except TOSCAException as general_error:
         # bug_data = str(validation_error)
-        bug_type = type(general_error).__name__
+        bug_type = type(general_error)
         bug_data = general_error.message
     if bug_type:
-        return {"error_type": str(bug_type),
+        return {"error_type": str(bug_type.__name__),
                 "error_info": str(bug_data).split(".\n\t\t")[0]}
     else:
         return {}
