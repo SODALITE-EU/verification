@@ -32,6 +32,6 @@ def run_verifier(file):
         bug_data = general_error.message
     if bug_type:
         return {"error_type": str(bug_type),
-                "error_info": str(bug_data)}
+                "error_info": str(bug_data).split(".\n\t\t")[0]}
     else:
         return {}
