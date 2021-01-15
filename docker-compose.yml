@@ -5,15 +5,22 @@ services:
     build:
       context: ./syntax
     ports:
-     - "5000:5000"
+     - "5001:5000"
 
   ansible-workflow:
     # will build ./workflow/Dockerfile
     build:
         ./workflow
     ports:
-      - "5001:5000"
+      - "5002:5000"
   
+  verifier-api:
+    # will build ./iacverifier/Dockerfile
+    build:
+        ./iacverifier
+    ports:
+      - "5000:5000"
+      
   opa-server:
     # will start opa server
     image: openpolicyagent/opa:0.25.1

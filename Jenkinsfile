@@ -55,10 +55,24 @@ pipeline {
             }
         }
     }
+	stage('SonarQube analysis api'){
+        environment {
+          scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('SonarCloud') {
+                sh  """ #!/bin/bash
+                        cd "iacverifier"
+                        ${scannerHome}/bin/sonar-scanner
+                    """
+            }
+        }
+    }
 	stage('Build docker images') {
             steps {
                 sh "cd syntax; docker build -t toscasynverifier  -f Dockerfile ."
                 sh "cd workflow; docker build -t workflowverifier -f Dockerfile ."
+				sh "cd iacverifier; docker build -t iacverifierapi -f Dockerfile ."
             }
     }
    
@@ -77,6 +91,10 @@ pipeline {
                             docker tag workflowverifier sodaliteh2020/workflowverifier
                             docker push sodaliteh2020/workflowverifier:${BUILD_NUMBER}
                             docker push sodaliteh2020/workflowverifier
+							docker tag iacverifierapi sodaliteh2020/iacverifierapi:${BUILD_NUMBER}
+                            docker tag iacverifierapi sodaliteh2020/iacverifierapi
+                            docker push sodaliteh2020/iacverifierapi:${BUILD_NUMBER}
+                            docker push sodaliteh2020/iacverifierapi
                         """
                 }
             }
