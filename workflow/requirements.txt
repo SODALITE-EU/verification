@@ -1,2 +1,2 @@
 flask
-pm4py==2.1.0
+pm4py
