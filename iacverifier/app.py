@@ -46,9 +46,6 @@ def verify(file_path, iactype):
     js = json.dumps(r.json(), sort_keys=False, indent=4)
 
     resp = Response(js, status=200, mimetype='application/json')
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'POST'
-    resp.headers['Access-Control-Max-Age'] = '1000'
     return resp
 
 
