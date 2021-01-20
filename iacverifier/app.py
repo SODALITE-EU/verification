@@ -42,7 +42,6 @@ def verify(file_path, iactype):
         url = 'http1://ansible-workflow:5002/errors/workflow/file'
     files = {'file': open(file_path, 'rb')}
     r = requests.post(url, files=files)
-    # errors = TOSCASyntaxVerifier.run_verifier(file)
     js = json.dumps(r.json(), sort_keys=False, indent=4)
 
     resp = Response(js, status=200, mimetype='application/json')
