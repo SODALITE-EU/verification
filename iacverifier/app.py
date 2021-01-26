@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-
 @app.route('/verifier/{iactype}/file', methods=['POST'])
 def detect_errors(iactype):
     home = str(Path.home())
@@ -20,7 +19,6 @@ def detect_errors(iactype):
         return json.dumps({'message': 'No file part in the request'}, sort_keys=False, indent=4), 400
 
     file = request.files['file']
-
     if file.filename == '':
         return json.dumps({'message': 'No file selected for uploading'}, sort_keys=False, indent=4), 400
     else:
@@ -43,7 +41,6 @@ def verify(file_path, iactype):
     files = {'file': open(file_path, 'rb')}
     r = requests.post(url, files=files)
     js = json.dumps(r.json(), sort_keys=False, indent=4)
-
     resp = Response(js, status=200, mimetype='application/json')
     return resp
 
