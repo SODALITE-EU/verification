@@ -27,7 +27,6 @@ def run_verifier(file):
         bug_data = str(itv_error.message)
         bug_type = type(itv_error)
     except TOSCAException as general_error:
-        # bug_data = str(validation_error)
         bug_type = type(general_error)
         bug_data = general_error.message
     if bug_type:
