@@ -37,7 +37,7 @@ def detect_errors():
 
 
 def verify(file):
-    errors = TOSCASyntaxVerifier.run_verifier(file)
+    errors, bug_type, bug_data = TOSCASyntaxVerifier.run_verifier(file)
     js = json.dumps(errors, sort_keys=False, indent=4)
 
     resp = Response(js, status=200, mimetype='application/json')
