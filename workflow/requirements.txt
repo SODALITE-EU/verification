@@ -1,2 +1,3 @@
 flask
 pm4py
+PyYAML==5.2
