@@ -1,7 +1,7 @@
 from pnmlpy import WorkflowVerifier
 
 
-class TestAdminByDefault:
+class TestControlFlow:
 
     def test_file(self):
         errors = WorkflowVerifier.run_verifier('testResources/runningexample.pnml')
