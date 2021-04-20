@@ -1,5 +1,5 @@
 flask
 pm4py
-PyYAML==5.2
+PyYAML==5.4
 pytest
 pytest-cov
