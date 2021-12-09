@@ -69,6 +69,12 @@ pipeline {
         }
     }
 	stage('Build docker images') {
+			when {
+				allOf {
+				// Triggered on every tag
+					expression{tag "*"}
+				   }
+            } 
             steps {
                 sh "cd syntax; docker build -t toscasynverifier  -f Dockerfile ."
                 sh "cd workflow; docker build -t workflowverifier -f Dockerfile ."
@@ -77,8 +83,11 @@ pipeline {
     }
    
     stage('Push Dockerfile to DockerHub') {
-            when {
-               branch "master"
+			when {
+				allOf {
+				// Triggered on every tag
+					expression{tag "*"}
+				   }
             }
             steps {
                 withDockerRegistry(credentialsId: 'jenkins-sodalite.docker_token', url: '') {
