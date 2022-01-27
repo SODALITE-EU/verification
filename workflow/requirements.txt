@@ -1,5 +1,6 @@
 flask
+Pillow==6.2.2
 pm4py
-PyYAML==5.4
+PyYAML
 pytest
 pytest-cov
