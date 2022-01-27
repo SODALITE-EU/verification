@@ -1,5 +1,5 @@
 flask
-Pillow==6.2.2
+Pillow==9.0.0
 pm4py
 PyYAML
 pytest
