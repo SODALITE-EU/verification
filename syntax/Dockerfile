@@ -1,5 +1,5 @@
 # Using python:3.9-alpine image
-FROM python:3.9-alpine
+FROM python:3.13.0a3-alpine
 # Defining working directory and copy the requirements file
 WORKDIR /usr/src/myapp
 COPY requirements.txt .
